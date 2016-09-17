@@ -53,7 +53,7 @@ namespace Dppkad.Controllers
                                                     || c.Status.Contains(param.sSearch));
 
                 var sortColumnIndex = Convert.ToInt32(Request["iSortCol_0"]);
-                Expression<Func<RealisasiSkpdModelInfo, string>> ordering = (c => sortColumnIndex == 0 ? Convert.ToString(c.No) :
+                Expression<Func<RealisasiSkpdModelInfo, string>> ordering = (c => sortColumnIndex == 0 ? c.No :
                                                                                         sortColumnIndex == 1 ? c.UnitSkpd :
                                                                                             c.Status);
 
@@ -63,10 +63,11 @@ namespace Dppkad.Controllers
 
                 var responses = _service.GetRealisasiSkpdList(filter, param.iDisplayLength, param.iDisplayStart, ordering, sortDirection);
 
+                var rowIndex = 1;
                 var result = (from x in responses
                               select new
                               {
-                                  x.No,
+                                  No = rowIndex++,
                                   x.UnitSkpd,
                                   TotalBudget = string.Format("{0:#,##0}", x.TotalBudget),
                                   TotalRealisasi = string.Format("{0:#,##0}", x.TotalRealisasi),
@@ -166,6 +167,12 @@ namespace Dppkad.Controllers
                 },
                JsonRequestBehavior.AllowGet);
             }
+        }
+
+        public ActionResult RealisasiSkpd()
+        {
+            var model = new RealisasiSkpdModelInfo();
+            return View(model);
         }
     }
 }

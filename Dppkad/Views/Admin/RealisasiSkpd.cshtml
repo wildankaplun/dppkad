@@ -1,0 +1,53 @@
+﻿@model Dppkad.Models.RealisasiSkpdModelInfo
+
+@{
+    ViewBag.Title = "Realisasi per SKPD";
+}
+
+<a title="" class="btn btn-white" href="@Url.Action("Index", "Admin")" data-original-title=" "><i class=" fa fa-chevron-left"></i> Dashboard Admin</a>
+<br><br>
+
+@using (Html.BeginForm("RealisasiSkpd", "Admin", FormMethod.Post))
+{
+    <section class="panel">
+        <header class="panel-heading font-bold">Realiasi SKPD Data</header>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <div class="col-lg-6"><label>Unit/SKPD</label></div>
+                        <div class="col-lg-6">
+                            @Html.TextBoxFor(o => o.UnitSkpd, null, new { @class = "form-control placeholder mandatory" })
+                        </div>
+                        @Html.ValidationMessageFor(o => o.UnitSkpd)
+                    </div>                    
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <div class="col-lg-6"><label>Total Anggaran</label></div>
+                        <div class="col-lg-6">
+                            @Html.TextBoxFor(o => o.TotalBudget, null, new { @class = "form-control text-right mandatory numeric" })
+                        </div>
+                        @Html.ValidationMessageFor(o => o.TotalBudget)
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <div class="col-lg-6"><label>Total Realisasi</label></div>
+                        <div class="col-lg-6">
+                            @Html.TextBoxFor(o => o.TotalRealisasi, null, new { @class = "form-control text-right mandatory numeric" })
+                        </div>
+                        @Html.ValidationMessageFor(o => o.TotalRealisasi)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="panel">
+        <footer class="panel-footer bg-light lter">
+            <input type="submit" id="statusButton" value="Submit" class="btn btn-primary" style="width: 100px;" />
+        </footer>
+    </section>
+}

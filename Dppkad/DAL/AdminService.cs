@@ -92,7 +92,7 @@ namespace Dppkad.DAL
                 return (from a in _realisasiRepository.AsQueryable()
                         select new RealisasiSkpdModelInfo()
                         {
-                            No = a.IdRealisasi,
+                            No = "0",
                             UnitSkpd = a.UnitSkpd,
                             TotalBudget = a.TotalBudget,
                             TotalRealisasi = a.TotalRealisasi,

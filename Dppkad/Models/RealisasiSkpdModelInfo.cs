@@ -13,7 +13,7 @@ namespace Dppkad.Models
 
     public class RealisasiSkpdModelInfo
     {
-        public int No { get; set; }
+        public string No { get; set; }
         public string UnitSkpd { get; set; }
         public decimal TotalBudget { get; set; }
         public decimal TotalRealisasi { get; set; }

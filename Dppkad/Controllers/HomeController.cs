@@ -59,9 +59,9 @@ namespace Dppkad.Controllers
                                                     || c.Status.Contains(param.sSearch));
 
                 var sortColumnIndex = Convert.ToInt32(Request["iSortCol_0"]);
-                Expression<Func<RealisasiBelanjaModelInfo, string>> ordering = (c => sortColumnIndex == 0 ? c.NoSPM :
-                                                                                        sortColumnIndex == 1 ? c.NoSP2D :
-                                                                                            c.Pihak3);
+                Expression<Func<RealisasiBelanjaModelInfo, string>> ordering = (c => sortColumnIndex == 0 ? c.No :
+                                                                                        sortColumnIndex == 1 ? c.NoSPM :
+                                                                                            c.NoSP2D);
 
                 var sortDirection = Request["sSortDir_0"]; // asc or desc
 
@@ -69,10 +69,11 @@ namespace Dppkad.Controllers
 
                 var responses = _service.GetRealisasiBelanjaList(filter, param.iDisplayLength, param.iDisplayStart, ordering, sortDirection);
 
+                var rowIndex = 1;
                 var result = (from x in responses
                               select new
                               {
-                                  x.No,
+                                  No = rowIndex++,
                                   x.NoSPM,
                                   x.NoSP2D,
                                   TglSP2D = string.Format("{0:dd/MM/yyyy}", x.TglSP2D),

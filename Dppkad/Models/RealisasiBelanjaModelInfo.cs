@@ -15,7 +15,7 @@ namespace Dppkad.Models
 
     public class RealisasiBelanjaModelInfo
     {
-        public int No { get; set; }
+        public string No { get; set; }
 
         public string NoSPM { get; set; }
 

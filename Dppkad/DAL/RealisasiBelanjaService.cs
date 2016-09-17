@@ -137,7 +137,7 @@ namespace Dppkad.DAL
                         from leftJoinD in leftQueryD.DefaultIfEmpty()
                         select new RealisasiBelanjaModelInfo()
                         {
-                            No = 0,
+                            No = "0",
                             NoSPM = a.NOSPM,
                             NoSP2D = a.NO_SP2D,
                             TglSP2D = a.TGLSP2D,

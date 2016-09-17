@@ -771,6 +771,7 @@
     <Compile Include="Common\CustomIdentity.cs" />
     <Compile Include="Common\CustomPrincipal.cs" />
     <Compile Include="Common\SimpleSessionPersister.cs" />
+    <Compile Include="Common\StringExtentions.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
@@ -826,6 +827,7 @@
     <Content Include="Views\Admin\_GridData.cshtml" />
     <Content Include="Views\Admin\_Slide.cshtml" />
     <Content Include="Views\Admin\_Agenda.cshtml" />
+    <Content Include="Views\Admin\RealisasiSkpd.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

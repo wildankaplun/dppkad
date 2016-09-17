@@ -1,0 +1,128 @@
+﻿
+@{
+    ViewBag.Title = "BUD (BENDAHARA UMUM DAERAH)";
+}
+
+@*<link rel="stylesheet" href=@Url.Content("~/Scripts/plugins/datatables/datatables.css") type="text/css" />*@
+
+<div id="alert_placeholder"></div>
+
+
+@Html.Partial("_GridData")
+
+@section Scripts{    
+    <script src="@Url.Content("~/Scripts/plugins/datatables/jquery.dataTables.min.js")"></script>
+    <script>
+        var oTable;
+        var oTableAgenda;
+        $(document).ready(function () {
+
+            // datatable
+            $('#table-list').each(function () {
+                oTable = $(this).dataTable({
+                    "bServerSide": true,
+                    "bProcessing": true,
+                    "aaSorting": [[0, "asc"]],
+                    "sScrollXInner": "200%",
+                    "sAjaxSource": "@Url.Action("AjaxHandler", "Home")",
+                    "sDom": "<'row'<'col-sm-6'><'col-sm-6'>r>t<'row'<'col-sm-6'i><'col-sm-6'>>",
+                    "sPaginationType": "full_numbers",
+                    "bAutoWidth": false,
+                    "aoColumns": [
+                        { "mData": "No" },
+                        { "mData": "NoSPM" },
+                        { "mData": "NoSP2D" },
+                        { "mData": "TglSP2D" },
+                        { "mData": "Unit" },
+                        { "mData": "Kegiatan" },
+                        { "mData": "Pihak3" },
+                        { "mData": "Kota" },
+                        { "mData": "NilaiKontrak" },
+                        {
+                            "mData": "Status",
+                            "bSearchable": false,
+                            "bSortable": false,
+                            "fnRender": function (oObj) {
+                                var status = oObj.aData["Status"];
+
+                                return "<span class='label label-default'>" + status + "</span>";
+                            }
+                        }
+                    ],
+                    "aoColumnDefs": [
+                        { "sWidth": "20%", "aTargets": [5] },
+                        { "sClass": "center", "aTargets": [0,1,2,3] }
+                    ],
+                    "fnRowCallback": function (nRow, aData, iDisplayIndex) {
+                        $('td:eq(8)', nRow).css("text-align", "right");
+                        return nRow;
+                    },
+                    "fnServerData": function (sSource, aoData, fnCallback) {
+                        $.ajax({
+                            "dataType": 'json',
+                            "type": "POST",
+                            "url": sSource,
+                            "data": aoData,
+                            "success": fnCallback,
+                            "timeout": 10000, // optional if you want to handle timeouts (which you should)
+                            "error": handleAjaxError // this sets up jQuery to give me errors
+                        });
+                    }
+                });
+            });
+
+            $('#table-agenda-list').each(function () {
+                oTableAgenda = $(this).dataTable({
+                    "bServerSide": true,
+                    "bProcessing": true,
+                    "aaSorting": [[0, "asc"]],
+                    "sScrollXInner": "200%",
+                    "sAjaxSource": "@Url.Action("AjaxAgendaHandler", "Home")",
+                    "sDom": "<'row'<'col-sm-6'><'col-sm-6'>r>t<'row'<'col-sm-6'i><'col-sm-6'>>",
+                    "sPaginationType": "full_numbers",
+                    "bAutoWidth": false,
+                    "aoColumns": [
+                        { "mData": "No" },
+                        { "mData": "Hari" },
+                        { "mData": "Tanggal" },
+                        { "mData": "Jam" },
+                        { "mData": "Uraian" }
+                    ],
+                    "aoColumnDefs": [
+                        { "sWidth": "50%", "aTargets": [4] },
+                        { "sClass": "center", "aTargets": [0,1,2,3,4] }
+                    ],
+                    "fnServerData": function (sSource, aoData, fnCallback) {
+                        $.ajax({
+                            "dataType": 'json',
+                            "type": "POST",
+                            "url": sSource,
+                            "data": aoData,
+                            "success": fnCallback,
+                            "timeout": 10000, // optional if you want to handle timeouts (which you should)
+                            "error": handleAjaxError // this sets up jQuery to give me errors
+                        });
+                    }
+                });
+            });
+        });
+
+        //handling Error
+        function handleAjaxError(textStatus) {
+            if (textStatus === 'timeout') {
+                bootstrap_alert.error("Timeout", "The server took too long to send the data.");
+            } else {
+                bootstrap_alert.error("Connection problem", "An error occurred on the server. Please try again in a few minute or contact your administrator.");
+            }
+        }
+
+        bootstrap_alert = function () { };
+        bootstrap_alert.success = function (header, message) {
+            $('#alert_placeholder').html('<div class="alert alert-success" role="alert"><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button><b>' + header + '!</b> ' + message + '</div>');
+        };
+
+        bootstrap_alert.error = function (header, message) {
+            $('#alert_placeholder').html('<div class="alert alert-danger" role="alert"><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button><b>' + header + '!</b> ' + message + '</div>');
+        };
+    </script>
+}

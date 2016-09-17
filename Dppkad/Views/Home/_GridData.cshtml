@@ -1,0 +1,95 @@
+﻿
+<div class="row">
+    <div class="col-md-9">
+        <div class="block block-drop-shadow">
+            <div class="head bg-default bg-light-ltr">
+                <h2>Realisasi Biaya</h2>
+
+            </div>
+            <div class="content list">
+                <table id="table-list" class="table table-bordered table-striped sortable">
+                    <thead>
+                        <tr>
+                            <th>
+                                NO
+                            </th>
+                            <th>
+                                NO SPM
+                            </th>
+                            <th>
+                                NO SP2D
+                            </th>
+                            <th>
+                                TANGGAL SP2D
+                            </th>
+                            <th>
+                                UNIT/SKPD
+                            </th>
+                            <th>
+                                KEGIATAN
+                            </th>
+                            <th>
+                                PIHAK KETIGA
+                            </th>
+                            <th>
+                                KOTA
+                            </th>
+                            <th>
+                                NILAI KONTRAK
+                            </th>
+                            <th>
+                                STATUS
+                            </th>
+                        </tr>
+                    </thead>
+                    @*<tbody>
+                        <tr>
+                            <td><input type="checkbox" name="checkbox" /></td>
+                            <td>00001/SPM/LS/1.20.01/B02/2016</td>
+                            <td>931/000020/LS/2016</td>
+                            <td>22/02/2016</td>
+                            <td>test unit 1</td>
+                            <td>test unit 1546676876879</td>
+                            <td>test unit 2</td>
+                            <td>test unit 3</td>
+                            <td>1,200,00.00</td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox" name="checkbox" /></td>
+                            <td>00001/SPM/LS/1.20.01/B02/2016</td>
+                            <td>931/000020/LS/2016</td>
+                            <td>22/02/2016</td>
+                            <td>test unit 1</td>
+                            <td>test unit 1546676876879</td>
+                            <td>test unit 2</td>
+                            <td>test unit 3</td>
+                            <td>1,200,00.00</td>
+                        </tr>
+                    </tbody>*@
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="content list-group list-group-icons">
+            @Html.Partial("_Slide")
+        </div>
+        <div class="content list-group list-group-icons">
+            @Html.Partial("_Agenda")
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="page-footer">
+        <div class="page-footer-wrap">
+            <div>
+                @foreach (var item in (List<Dppkad.Models.BeritaInfo>)ViewBag.BeritaViewInfo)
+                {
+                    <marquee direction="right">
+                        @item.News
+                    </marquee>
+                }
+            </div>
+        </div>
+    </div>
+</div>

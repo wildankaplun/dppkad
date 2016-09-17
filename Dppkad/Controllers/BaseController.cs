@@ -13,16 +13,16 @@ namespace Dppkad.Controllers
     {
         protected override void OnAuthorization(AuthorizationContext filterContext)
         {
-            if (!string.IsNullOrEmpty(Session["UserId"] as string))
+            if (!string.IsNullOrEmpty(SimpleSessionPersister.Username))
             {
                 filterContext.HttpContext.User =
                     new CustomPrincipal(
-                        new CustomIdentity(Session["UserName"] as string));
+                        new CustomIdentity(SimpleSessionPersister.Username));
 
                 base.OnAuthorization(filterContext);
             }
 
-            if (string.IsNullOrEmpty(Session["UserId"] as string))
+            if (string.IsNullOrEmpty(SimpleSessionPersister.Username))
             {
                 var url = new UrlHelper(filterContext.RequestContext);
                 var LoginUrl = url.Action("Login", "Account", null);

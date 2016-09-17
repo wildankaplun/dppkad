@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Dppkad.DAL;
 using Dppkad.Models;
 using System.Linq.Expressions;
+using System.Data.Entity.SqlServer;
 
 namespace Dppkad.Controllers
 {
@@ -46,6 +47,16 @@ namespace Dppkad.Controllers
             try
             {
                 #region Set Filter
+
+                if (param.sSearch != null)
+                    filter = (c => c.NoSPM.Contains(param.sSearch)
+                                                    || c.NoSP2D.Contains(param.sSearch)
+                                                    || c.Unit.Contains(param.sSearch)
+                                                    || c.Kegiatan.Contains(param.sSearch)
+                                                    || c.Pihak3.Contains(param.sSearch)
+                                                    || c.Kota.Contains(param.sSearch)
+                                                    || SqlFunctions.StringConvert((decimal)c.NilaiKontrak).Contains(param.sSearch)
+                                                    || c.Status.Contains(param.sSearch));
 
                 var sortColumnIndex = Convert.ToInt32(Request["iSortCol_0"]);
                 Expression<Func<RealisasiBelanjaModelInfo, string>> ordering = (c => sortColumnIndex == 0 ? c.NoSPM :

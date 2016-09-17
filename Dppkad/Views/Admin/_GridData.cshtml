@@ -1,0 +1,62 @@
+﻿
+<div class="row">
+    <div class="col-md-9">
+        <div class="block block-drop-shadow">
+            <div class="head bg-default bg-light-ltr">
+                <h2>Realisasi Tahun @DateTime.Now.Year</h2>
+
+            </div>
+            <div class="content list">
+                <table id="table-list" class="table table-bordered table-striped sortable">
+                    <thead>
+                        <tr>
+                            <th>
+                                NO
+                            </th>
+                            <th>
+                                UNIT/SKPD
+                            </th>
+                            <th>
+                                TOTAL ANGGARAN
+                            </th>
+                            <th>
+                                TOTAL REALISASI
+                            </th>
+                            <th>
+                                PERSENTASE
+                            </th>
+                            <th>
+                                SISA ANGGARAN
+                            </th>
+                            <th>
+                                Status
+                            </th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="content list-group list-group-icons">
+            @Html.Partial("_Slide")
+        </div>
+        <div class="content list-group list-group-icons">
+            @Html.Partial("_Agenda")
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="page-footer">
+        <div class="page-footer-wrap">
+            <div>
+                @foreach (var item in (List<Dppkad.Models.BeritaSkpdInfo>)ViewBag.BeritaViewInfo)
+                {
+                    <marquee direction="right">
+                        @item.News
+                    </marquee>
+                }
+            </div>
+        </div>
+    </div>
+</div>

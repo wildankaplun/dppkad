@@ -1,4 +1,5 @@
-﻿using Dppkad.DAL;
+﻿using Dppkad.Common;
+using Dppkad.DAL;
 using Dppkad.Models;
 using System;
 using System.Collections.Generic;
@@ -35,24 +36,23 @@ namespace Dppkad.Controllers
         //Handle Authentication When Login Form Submitted
         [HttpPost]
         [AllowAnonymous]
-        public ActionResult Login(RealisasiBelanjaModelView model, string returnUrl)
+        public ActionResult Login(UserDppkadInfo model, string returnUrl)
         {
             if (!this.ModelState.IsValid)
             {
                 return this.View(model);
             }
 
-            string accountId = model.UserViewInfo.UserName;
-            string password = model.UserViewInfo.UserPassword;
+            string accountId = model.UserName;
+            string password = model.UserPassword;
 
             var result = service.Login(accountId, password);
             if (result != null)
             {
                 CultureInfo cultureInfo = Thread.CurrentThread.CurrentCulture;
                 TextInfo textInfo = cultureInfo.TextInfo;
-                Session["UserId"] = result.UserId;
-                Session["UserName"] = result.UserName;
-                return RedirectToAction("Index", "Home");
+                SimpleSessionPersister.Username = result.UserName;
+                return RedirectToAction("Index", "Admin");
             }
             else
             {

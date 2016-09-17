@@ -17,14 +17,14 @@
                     <div class="panel-body">
                         <div class="form-group">
                             <label class="control-label">Username</label>
-                            @Html.TextBox("Username", null, new { @class = "form-control parsley-validated", @placeholder = "Your Username Here", @style = "text-transform:uppercase !important;", @data_required = "true", @tabindex = "1" })
+                            @Html.TextBox("UserName", null, new { @class = "form-control parsley-validated", @placeholder = "Your Username Here", @style = "text-transform:normalcase !important;", @data_required = "true", @tabindex = "1" })
+                            @Html.ValidationMessage("UserName")
                         </div>
-                        @Html.ValidationMessage("Username")
                         <div class="form-group">
                             <label class="control-label">Password</label>
-                            @Html.Password("Password", null, new { @class = "form-control", @data_required = "true", @placeholder = "Your Password Here", @style = "text-transform:uppercase !important;", @tabindex = "2" })
+                            @Html.Password("UserPassword", null, new { @class = "form-control", @data_required = "true", @placeholder = "Your Password Here", @style = "text-transform:normalcase !important;", @tabindex = "2" })
+                            @Html.ValidationMessage("UserPassword")
                         </div>
-                        @Html.ValidationMessage("Password")
                     </div>
                     <footer class="panel-footer bg-light lter">
                         <input type="submit" class="btn btn-primary" value="Sign In">

@@ -770,6 +770,7 @@
     <Compile Include="BL\UnitOfWork.cs" />
     <Compile Include="Common\CustomIdentity.cs" />
     <Compile Include="Common\CustomPrincipal.cs" />
+    <Compile Include="Common\SimpleSessionPersister.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
@@ -795,6 +796,7 @@
     <Compile Include="Models\Entities\TUser.cs" />
     <Compile Include="Models\JQueryDataTableParamModel.cs" />
     <Compile Include="Models\RealisasiBelanjaModelInfo.cs" />
+    <Compile Include="Models\RealisasiSkpdModelInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -821,6 +823,9 @@
     <Content Include="Views\Home\_Agenda.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Admin\_GridData.cshtml" />
+    <Content Include="Views\Admin\_Slide.cshtml" />
+    <Content Include="Views\Admin\_Agenda.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

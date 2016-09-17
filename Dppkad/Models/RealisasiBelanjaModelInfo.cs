@@ -11,7 +11,6 @@ namespace Dppkad.Models
     {
         public IEnumerable<BannerInfo> BannerViewInfo { get; set; }
         public IEnumerable<BeritaInfo> BeritaViewInfo { get; set; }
-        public UserDppkadInfo UserViewInfo { get; set; }
     }
 
     public class RealisasiBelanjaModelInfo

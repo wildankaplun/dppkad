@@ -121,7 +121,7 @@
 
             function get_banner_info() {
                 $.ajax({
-                    url: '@Url.Action("GetBannerInfo", "Home")',
+                    url: '@Url.Action("GetBannerInfo", "Admin")',
                     type: 'POST',
                     data: {},
                     dataType: 'json',
@@ -144,7 +144,7 @@
 
                 $.ajax({
                     url: '@Url.Action("GetChartInfo", "Admin")',
-                    type: 'GET',
+                    type: 'POST',
                     data: {},
                     dataType: 'json',
                     contentType: 'application/json',

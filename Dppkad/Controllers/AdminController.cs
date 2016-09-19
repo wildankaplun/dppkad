@@ -167,7 +167,7 @@ namespace Dppkad.Controllers
             }
         }
 
-        [AcceptVerbs(HttpVerbs.Get)]
+        [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult GetChartInfo()
         {
             var model = new RealisasiSkpdModelView();

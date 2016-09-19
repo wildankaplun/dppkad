@@ -187,23 +187,23 @@ $(document).ready(function(){
  
     $("#chart_bar_1,#chart_bar_2,#chart_line_1,#dash_chart_1,#dash_chart_2,#chart_user_1").bind("plothover", function (event, pos, item) {
         
-        $("#x").text(pos.x.toFixed(2));
-        $("#y").text(pos.y.toFixed(2));
+        $("#x").text(pos.x.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,'));
+        $("#y").text(pos.y.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,'));
 
         if (item) {
             if (previousPoint != item.dataIndex) {
                 previousPoint = item.dataIndex;
 
                 $(".ftooltip").remove();
-                var x = item.datapoint[0].toFixed(2),
-                    y = item.datapoint[1].toFixed(2);
+                var x = item.datapoint[0].toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,'),
+                    y = item.datapoint[1].toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
 
                 showTooltip(item.pageX, item.pageY,
                             item.series.label + ": " + y);
             }
         }else {
             $(".ftooltip").remove();
-            previousPoint = null;            
+            previousPoint = null;
         }
 
     });    

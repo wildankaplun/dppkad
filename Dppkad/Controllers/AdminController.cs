@@ -30,9 +30,7 @@ namespace Dppkad.Controllers
             //ViewBag.BannerViewInfo = model.BannerViewInfo;
 
             var beritaResponses = _service.GetBeritaInfo();
-
             model.BeritaViewInfo = beritaResponses as IList<BeritaSkpdInfo> ?? beritaResponses.ToList();
-
             ViewBag.BeritaViewInfo = model.BeritaViewInfo;
 
             return View();
@@ -167,6 +165,26 @@ namespace Dppkad.Controllers
                 },
                JsonRequestBehavior.AllowGet);
             }
+        }
+
+        [AcceptVerbs(HttpVerbs.Get)]
+        public ActionResult GetChartInfo()
+        {
+            var model = new RealisasiSkpdModelView();
+
+            var chartResponses = _service.GetChartInfo();
+
+            var result = (from x in chartResponses
+                          select new
+                          {
+                              TahunBudget = x.TahunBudget,
+                              Budget = string.Format("{0:#,##0}", x.Budget),
+                              Realisasi = string.Format("{0:#,##0}", x.Realisasi)
+                          });
+
+            model.ChartViewInfo = chartResponses as IList<ChartSkpdInfo> ?? chartResponses.ToList();
+
+            return Json(model.ChartViewInfo, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult RealisasiSkpd()

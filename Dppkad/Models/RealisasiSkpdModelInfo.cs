@@ -9,6 +9,7 @@ namespace Dppkad.Models
     {
         public IEnumerable<BannerSkpdInfo> BannerViewInfo { get; set; }
         public IEnumerable<BeritaSkpdInfo> BeritaViewInfo { get; set; }
+        public IEnumerable<ChartSkpdInfo> ChartViewInfo { get; set; }
     }
 
     public class RealisasiSkpdModelInfo
@@ -65,6 +66,20 @@ namespace Dppkad.Models
         public string Jam { get; set; }
         public string Uraian { get; set; }
         public string Keterangan { get; set; }
+    }
+
+    public class ChartSkpdInfo
+    {
+        public int TahunBudget { get; set; }
+        public decimal? Budget { get; set; }
+        public decimal? Realisasi { get; set; }
+    }
+
+    public class ChartSkpdUpdate
+    {
+        public int TahunBudget { get; set; }
+        public decimal? Budget { get; set; }
+        public decimal? Realisasi { get; set; }
     }
 
     public class BeritaSkpdInfo

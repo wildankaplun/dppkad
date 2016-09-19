@@ -25,6 +25,9 @@ namespace Dppkad.DAL
 
         IEnumerable<AgendaSkpdInfo> GetAgendaInfoList(Expression<Func<AgendaSkpdInfo, bool>> where, int take, int skip,
             Expression<Func<AgendaSkpdInfo, string>> sort, string sortType);
+
+        IEnumerable<ChartSkpdInfo> GetChartInfo();
+
         int TotalAgendaInfo();
         int TotalAgendaInfo(Expression<Func<AgendaSkpdInfo, bool>> where);
 
@@ -199,6 +202,19 @@ namespace Dppkad.DAL
                           {
                               News = c.News,
                               ActiveFlag = c.ActiveFlag ?? false,
+                          });
+            return result.AsEnumerable();
+        }
+
+        public IEnumerable<ChartSkpdInfo> GetChartInfo()
+        {
+            var result = (from c in _grafikRepository.AsQueryable()
+                          orderby c.TahunBudget
+                          select new ChartSkpdInfo()
+                          {
+                              TahunBudget = c.TahunBudget,
+                              Budget = c.Budget,
+                              Realisasi = c.Realisasi
                           });
             return result.AsEnumerable();
         }

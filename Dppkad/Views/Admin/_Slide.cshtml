@@ -153,26 +153,7 @@
 
 </div>
 <script>
-    function get_banner_info() {
-        $.ajax({
-            url: '@Url.Action("GetBannerInfo", "Home")',
-            type: 'POST',
-            data: {},
-            dataType: 'json',
-            contentType: 'application/json',
-            success: function (data) {
-                $.each(data, function (index, val) {
-                    $('div#jssor_slide').append("<div data-p='112.50' style='display: none;'><img data-u='image' src='" + val.BannerPath + val.BannerName + "' /></div>");
-                });
-            }
-        });
-    }
-
-    get_banner_info();
-
-    setTimeout(function () {
-        jssor_1_slider_init();
-    }, 1000);
+    
 </script>
 
 <!-- #endregion Jssor Slider End -->

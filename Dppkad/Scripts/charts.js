@@ -1,4 +1,4 @@
-$(document).ready(function(){        
+$(document).ready(function(){    
     
     if($("#dash_chart_1").length > 0){
         
@@ -17,11 +17,11 @@ $(document).ready(function(){
         var data1  = [ [1, 1023], [2, 1244], [3, 1506], [4, 1330], [5, 1065], [6, 890], [7,650] ];
         var data2  = [ [1, 868], [2, 1485], [3, 1355], [4, 1002], [5, 1200], [6, 755], [7,800] ];
         
-        var dash_chart_2 = $.plot($("#dash_chart_2"), [{ data: data1, label: "Search Traffic"},{data: data2, label: "Referal Traffic"}],{ 
+        var dash_chart_2 = $.plot($("#dash_chart_2"), [{ data: data1, label: "Anggaran"},{data: data2, label: "Realisasi"}],{ 
                                   series: {lines: { show: true }, points: { show: true }},
                                   grid: { hoverable: true, clickable: true},
-                                  xaxis: {max: 7,ticks: [[1,'Mon'],[2,'Tue'],[3,'Wed'],[4,'Thu'],[5,'Fri'],[6,'Sat'],[7,'Sun']]}
-                              });          
+                                  xaxis: {max: 7,ticks: [[1,'2011'],[2,'2012'],[3,'2013'],[4,'2014'],[5,'2015'],[6,'2016']]}
+                              });
         
     }    
     

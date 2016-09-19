@@ -171,7 +171,17 @@ namespace Dppkad.Controllers
 
         public ActionResult RealisasiSkpd()
         {
-            var model = new RealisasiSkpdModelInfo();
+            var model = new RealisasiSkpdModelUpdate();
+            return View(model);
+        }
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult RealisasiSkpd(RealisasiSkpdModelUpdate model)
+        {
+            if (!ModelState.IsValid)
+            {
+
+            }
             return View(model);
         }
     }

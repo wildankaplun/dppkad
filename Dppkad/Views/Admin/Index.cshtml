@@ -12,7 +12,17 @@
 @Html.Partial("_GridData")
 
 @section Scripts{
+    <script src="@Url.Content("~/Scripts/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/plugins/uniform/jquery.uniform.min.js")"></script>
     <script src="@Url.Content("~/Scripts/plugins/datatables/jquery.dataTables.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/plugins/knob/jquery.knob.js")"></script>
+    <script src="@Url.Content("~/Scripts/plugins/sparkline/jquery.sparkline.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/plugins/flot/jquery.flot.js")"></script>
+    @*<script src="@Url.Content("~/Scripts/plugins.js")"></script>*@
+    <script src="@Url.Content("~/Scripts/actions.js")"></script>
+    <script src="@Url.Content("~/Scripts/charts.js")"></script>
+    @*<script src="@Url.Content("~/Scripts/settings.js")"></script>*@
+
     <script>
         var oTable;
         var oTableAgenda;

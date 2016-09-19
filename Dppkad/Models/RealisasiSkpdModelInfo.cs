@@ -22,7 +22,25 @@ namespace Dppkad.Models
         public string Status { get; set; }
     }
 
+    public class RealisasiSkpdModelUpdate
+    {
+        public string UnitSkpd { get; set; }
+        public decimal TotalBudget { get; set; }
+        public decimal TotalRealisasi { get; set; }
+        public int? Persentase { get; set; }
+        public decimal? SisaBudget { get; set; }
+        public string Status { get; set; }
+    }
+
     public class BannerSkpdInfo
+    {
+        public string BannerName { get; set; }
+        public string BannerPath { get; set; }
+        public bool? ActiveFlag { get; set; }
+        public int SortOrder { get; set; }
+    }
+
+    public class BannerSkpdUpdate
     {
         public string BannerName { get; set; }
         public string BannerPath { get; set; }
@@ -40,7 +58,22 @@ namespace Dppkad.Models
         public string Keterangan { get; set; }
     }
 
+    public class AgendaSkpdUpdate
+    {
+        public string Hari { get; set; }
+        public string Tanggal { get; set; }
+        public string Jam { get; set; }
+        public string Uraian { get; set; }
+        public string Keterangan { get; set; }
+    }
+
     public class BeritaSkpdInfo
+    {
+        public string News { get; set; }
+        public bool? ActiveFlag { get; set; }
+    }
+
+    public class BeritaSkpdUpdate
     {
         public string News { get; set; }
         public bool? ActiveFlag { get; set; }

@@ -16,6 +16,9 @@ namespace Dppkad.Models.Entities
         [StringLength(255)]
         public string News { get; set; }
 
+        [Column(TypeName = "smalldatetime")]
+        public DateTime? CreatedDate { get; set; }
+
         public bool? ActiveFlag { get; set; }
     }
 }

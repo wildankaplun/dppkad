@@ -6,78 +6,132 @@
 @*<link rel="stylesheet" href=@Url.Content("~/Scripts/plugins/datatables/datatables.css") type="text/css" />*@
 
 <div id="alert_placeholder"></div>
-
+@*<div id="divTest">
+    <ul>
+        <li>DPPKAD</li>
+        <li>Kab. Ciamis</li>
+    </ul>
+</div>*@
 
 @Html.Partial("_GridData")
 
 @section Scripts{    
     <script src="@Url.Content("~/Scripts/plugins/datatables/jquery.dataTables.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/plugins/vticker/jquery.vticker.js")"></script>
+
     <script>
-        var oTable;
-        var oTableAgenda;
-        $(document).ready(function () {
+    var oTable;
+    var oTableAgenda;
+    $(document).ready(function () {
+        get_banner_info();
 
-            // datatable
-            $('#table-list').each(function () {
-                oTable = $(this).dataTable({
-                    "bServerSide": true,
-                    "bProcessing": true,
-                    "aaSorting": [[0, "asc"]],
-                    "sScrollXInner": "200%",
-                    "sAjaxSource": "@Url.Action("AjaxHandler", "Home")",
-                    "sDom": "<'row'<'col-sm-6'><'col-sm-6'f>r>t<'row'<'col-sm-6'i><'col-sm-6'>>",
-                    "sPaginationType": "full_numbers",
-                    "bAutoWidth": false,
-                    "aoColumns": [
-                        { "mData": "No" },
-                        { "mData": "NoSPM" },
-                        { "mData": "NoSP2D" },
-                        { "mData": "TglSP2D" },
-                        { "mData": "Unit" },
-                        { "mData": "Kegiatan" },
-                        { "mData": "Pihak3" },
-                        { "mData": "Kota" },
-                        { "mData": "NilaiKontrak" },
-                        {
-                            "mData": "Status",
-                            "bSearchable": false,
-                            "bSortable": false,
-                            "fnRender": function (oObj) {
-                                var status = oObj.aData["Status"];
+        setTimeout(function () {
+            jssor_1_slider_init();
+        }, 1000);
 
-                                return "<span class='label label-default'>" + status + "</span>";
-                            }
+        setTimeout(function () {
+            //
+            //$('#table-list tbody').vTicker('init', {
+            //    speed: 400,
+            //    pause: 1000,
+            //    showItems: 2,
+            //    padding: 4
+            //});
+
+            // pause
+            //$('#table-pause').vTicker({ margin: 10 });
+            //$('#pause').click(function () {
+            //    $this = $(this);
+            //    if ($this.text() == 'Pause') {
+            //        $('#table-pause').vTicker('pause', true);
+            //        $this.text('Unpause');
+            //    }
+            //    else {
+            //        $('#table-pause').vTicker('pause', false);
+            //        $this.text('Pause');
+            //    }
+            //});
+
+            // next
+            //$('#table-next').vTicker({ margin: 10 });
+            //$('#next-animate').click(function () {
+            //    $('#table-next').vTicker('next', { animate: true });
+            //});
+            //$('#next').click(function () {
+            //    $('#table-next').vTicker('next', { animate: false });
+            //});
+
+            // prev
+            //$('#table-prev').vTicker({ margin: 10 });
+            //$('#prev-animate').click(function () {
+            //    $('#table-prev').vTicker('prev', { animate: true });
+            //});
+            //$('#prev').click(function () {
+            //    $('#table-prev').vTicker('prev', { animate: false });
+            //});
+        }, 10000);
+
+        // datatable
+        $('#table-list').each(function () {
+            oTable = $(this).dataTable({
+                "bServerSide": true,
+                "bProcessing": true,
+                "aaSorting": [[0, "asc"]],
+                "sScrollXInner": "200%",
+                "sAjaxSource": "@Url.Action("AjaxHandler", "Home")",
+                "sDom": "<'row'<'col-sm-6'><'col-sm-6'f>r>t<'row'<'col-sm-6'><'col-sm-6'>>",
+                "sPaginationType": "full_numbers",
+                "bAutoWidth": false,
+                "aoColumns": [
+                    { "mData": "No" },
+                    { "mData": "NoSPM" },
+                    { "mData": "NoSP2D" },
+                    { "mData": "TglSP2D" },
+                    { "mData": "Unit" },
+                    { "mData": "Kegiatan" },
+                    { "mData": "Pihak3" },
+                    { "mData": "Kota" },
+                    { "mData": "NilaiKontrak" },
+                    {
+                        "mData": "Status",
+                        "bSearchable": false,
+                        "bSortable": false,
+                        "fnRender": function (oObj) {
+                            var status = oObj.aData["Status"];
+
+                            return "<span class='label label-default'>" + status + "</span>";
                         }
-                    ],
-                    "aoColumnDefs": [
-                        { "sWidth": "20%", "aTargets": [5] },
-                        { "sClass": "center", "aTargets": [0,1,2,3] }
-                    ],
-                    "fnRowCallback": function (nRow, aData, iDisplayIndex) {
-                        $('td:eq(8)', nRow).css("text-align", "right");
-                        return nRow;
-                    },
-                    "fnServerData": function (sSource, aoData, fnCallback) {
-                        $.ajax({
-                            "dataType": 'json',
-                            "type": "POST",
-                            "url": sSource,
-                            "data": aoData,
-                            "success": fnCallback,
-                            "timeout": 10000, // optional if you want to handle timeouts (which you should)
-                            "error": handleAjaxError // this sets up jQuery to give me errors
-                        });
                     }
-                });
+                ],
+                "aoColumnDefs": [
+                    { "sWidth": "20%", "aTargets": [5] },
+                    { "sClass": "center", "aTargets": [0, 1, 2, 3] }
+                ],
+                "fnRowCallback": function (nRow, aData, iDisplayIndex) {
+                    $('td:eq(8)', nRow).css("text-align", "right");
+                    return nRow;
+                },
+                "fnServerData": function (sSource, aoData, fnCallback) {
+                    $.ajax({
+                        "dataType": 'json',
+                        "type": "POST",
+                        "url": sSource,
+                        "data": aoData,
+                        "success": fnCallback,
+                        "timeout": 10000, // optional if you want to handle timeouts (which you should)
+                        "error": handleAjaxError // this sets up jQuery to give me errors
+                    });
+                }
             });
+        });
 
-            $('#table-agenda-list').each(function () {
-                oTableAgenda = $(this).dataTable({
-                    "bServerSide": true,
-                    "bProcessing": true,
-                    "aaSorting": [[0, "asc"]],
-                    "sScrollXInner": "200%",
-                    "sAjaxSource": "@Url.Action("AjaxAgendaHandler", "Home")",
+        $('#table-agenda-list').each(function () {
+            oTableAgenda = $(this).dataTable({
+                "bServerSide": true,
+                "bProcessing": true,
+                "aaSorting": [[0, "asc"]],
+                "sScrollXInner": "200%",
+                "sAjaxSource": "@Url.Action("AjaxAgendaHandler", "Home")",
                     "sDom": "<'row'<'col-sm-6'><'col-sm-6'>r>t<'row'<'col-sm-6'i><'col-sm-6'>>",
                     "sPaginationType": "full_numbers",
                     "bAutoWidth": false,
@@ -106,6 +160,21 @@
                 });
             });
         });
+
+        function get_banner_info() {
+            $.ajax({
+                url: '@Url.Action("GetBannerInfo", "Home")',
+                type: 'POST',
+                data: {},
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function (data) {
+                    $.each(data, function (index, val) {
+                        $('div#jssor_slide').append("<div data-p='112.50' style='display: none;'><img data-u='image' src='" + val.BannerPath + val.BannerName + "' /></div>");
+                    });
+                }
+            });
+        }
 
         //handling Error
         function handleAjaxError(textStatus) {

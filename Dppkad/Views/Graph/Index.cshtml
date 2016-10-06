@@ -1,0 +1,256 @@
+﻿@{
+    ViewBag.Title = "BUD (BENDAHARA UMUM DAERAH)";
+
+}
+
+@*<link rel="stylesheet" href=@Url.Content("~/Scripts/plugins/datatables/datatables.css") type="text/css" />*@
+
+<div id="alert_placeholder"></div>
+
+
+@Html.Partial("_GridData")
+
+@section Scripts{
+    <script src="@Url.Content("~/Scripts/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/plugins/uniform/jquery.uniform.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/plugins/datatables/jquery.dataTables.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/plugins/flot/jquery.flot.js")"></script>
+    <script src="@Url.Content("~/Scripts/plugins/flot/jquery.flot.resize.js")"></script>
+
+    <script type="text/javascript">
+
+    var oTable;
+    var oTableAgenda;
+    $(document).ready(function () {
+
+        get_banner_info();
+
+        setTimeout(function () {
+            jssor_1_slider_init();
+        }, 1000);
+
+        // datatable
+        $('#table-list').each(function () {
+            oTable = $(this).dataTable({
+                "bServerSide": true,
+                "bProcessing": true,
+                "aaSorting": [[0, "asc"]],
+                "sScrollXInner": "200%",
+                "sAjaxSource": "@Url.Action("AjaxHandler", "Graph")",
+                "sDom": "<'row'<'col-sm-6'><'col-sm-6'f>r>t<'row'<'col-sm-6'><'col-sm-6'>>",
+                "sPaginationType": "full_numbers",
+                "bAutoWidth": false,
+                "aoColumns": [
+                    { "mData": "No" },
+                    { "mData": "UnitSkpd" },
+                    { "mData": "TotalBudget" },
+                    { "mData": "TotalRealisasi" },
+                    { "mData": "Persentase" },
+                    { "mData": "SisaBudget" },
+                    {
+                        "mData": "Status",
+                        "bSearchable": false,
+                        "bSortable": false,
+                        "fnRender": function (oObj) {
+                            var status = oObj.aData["Status"];
+
+                            return "<span class='label label-default'>" + status + "</span>";
+                        }
+                    }
+                ],
+                "aoColumnDefs": [
+                    { "sWidth": "20%", "aTargets": [1] },
+                    { "sClass": "center", "aTargets": [0, 4, 6] }
+                ],
+                "fnRowCallback": function (nRow, aData, iDisplayIndex) {
+                    $('td:eq(2)', nRow).css("text-align", "right");
+                    $('td:eq(3)', nRow).css("text-align", "right");
+                    $('td:eq(4)', nRow).css("text-align", "right");
+                    $('td:eq(5)', nRow).css("text-align", "right");
+                    $('td:eq(6)', nRow).css("text-align", "center");
+                    return nRow;
+                },
+                "fnServerData": function (sSource, aoData, fnCallback) {
+                    $.ajax({
+                        "dataType": 'json',
+                        "type": "POST",
+                        "url": sSource,
+                        "data": aoData,
+                        "success": fnCallback,
+                        "timeout": 10000, // optional if you want to handle timeouts (which you should)
+                        "error": handleAjaxError // this sets up jQuery to give me errors
+                    });
+                }
+            });
+        });
+
+        $('#table-agenda-list').each(function () {
+            oTableAgenda = $(this).dataTable({
+                "bServerSide": true,
+                "bProcessing": true,
+                "aaSorting": [[0, "asc"]],
+                "sScrollXInner": "200%",
+                "sAjaxSource": "@Url.Action("AjaxAgendaHandler", "Graph")",
+                "sDom": "<'row'<'col-sm-6'><'col-sm-6'>r>t<'row'<'col-sm-6'i><'col-sm-6'>>",
+                "sPaginationType": "full_numbers",
+                "bAutoWidth": false,
+                "aoColumns": [
+                    { "mData": "No" },
+                    { "mData": "Hari" },
+                    { "mData": "Tanggal" },
+                    { "mData": "Jam" },
+                    { "mData": "Uraian" }
+                ],
+                "aoColumnDefs": [
+                    { "sWidth": "50%", "aTargets": [4] },
+                    { "sClass": "center", "aTargets": [0, 1, 2, 3, 4] }
+                ],
+                "fnServerData": function (sSource, aoData, fnCallback) {
+                    $.ajax({
+                        "dataType": 'json',
+                        "type": "POST",
+                        "url": sSource,
+                        "data": aoData,
+                        "success": fnCallback,
+                        "timeout": 10000, // optional if you want to handle timeouts (which you should)
+                        "error": handleAjaxError // this sets up jQuery to give me errors
+                    });
+                }
+            });
+        });
+
+        get_chart_info();
+
+        });
+
+        function get_chart_info() {
+            var ydata1 = [];
+            var ydata2 = [];
+            var xdata = [];
+            var ycounter1 = 1;
+            var ycounter2 = 1;
+            var xcounter = 1;
+
+            $.ajax({
+                url: '@Url.Action("GetChartInfo", "Graph")',
+                type: 'POST',
+                data: {},
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function (data) {
+                    $.each(data, function (index, val) {
+                        ydata1.push([ycounter1++, val.Budget]);
+                        ydata2.push([ycounter2++, val.Realisasi]);
+                        xdata.push([xcounter++, val.TahunBudget]);
+                    });
+
+                    // set data to chart
+                    //if ($("#dash_chart_1").length > 0) {
+
+                    //    var data = [[1, 25], [2, 28], [3, 22], [4, 18], [5, 30], [6, 18], [7, 14]];
+
+                    //    var dash_chart_1 = $.plot($("#dash_chart_1"), [{ data: data, label: "Sales" }], {
+                    //        series: { lines: { show: true }, points: { show: true } },
+                    //        grid: { hoverable: true, clickable: true, margin: { left: 110 } },
+                    //        xaxis: { ticks: [[1, 'Mon'], [2, 'Tue'], [3, 'Wed'], [4, 'Thu'], [5, 'Fri'], [6, 'Sat'], [7, 'Sun']] },
+                    //        legend: { show: false }
+                    //    });
+
+                    //}
+
+                    if ($("#dash_chart_2").length > 0) {
+
+                        var data1 = ydata1;
+                        var data2 = ydata2;
+                        var dash_chart_2 = $.plot($("#dash_chart_2"), [{ data: data1, label: "Anggaran" }, { data: data2, label: "Realisasi" }], {
+                            series: { lines: { show: true }, points: { show: true, radius: 4 } },
+                            grid: { hoverable: true, clickable: true },
+                            yaxis: { min: 0, tickDecimals: 0 },
+                            xaxis: { min: 0, max: xdata.length, ticks: xdata }
+                        });
+
+                    }
+
+                    function showTooltip(x, y, contents) {
+                        $('<div class="ftooltip">' + contents + '</div>').css({
+                            position: 'absolute',
+                            'z-index': '10',
+                            display: 'none',
+                            top: y - 20,
+                            left: x,
+                            padding: '3px',
+                            'background-color': 'rgba(0,0,0,0.5)',
+                            'font-size': '11px',
+                            'border-radius': '3px',
+                            color: '#FFF'
+                        }).appendTo("body").fadeIn(200);
+                    }
+
+                    var previousPoint = null;
+
+
+                    $("#dash_chart_2").bind("plothover", function (event, pos, item) {
+
+                        $("#x").text(pos.x.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,'));
+                        $("#y").text(pos.y.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,'));
+
+                        if (item) {
+                            if (previousPoint != item.dataIndex) {
+                                previousPoint = item.dataIndex;
+
+                                $(".ftooltip").remove();
+                                var x = item.datapoint[0].toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,'),
+                                    y = item.datapoint[1].toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
+
+                                showTooltip(item.pageX, item.pageY,
+                                            item.series.label + ": " + y);
+                            }
+                        } else {
+                            $(".ftooltip").remove();
+                            previousPoint = null;
+                        }
+
+                        //
+                        ydata1 = new Array();
+                        ydata2 = new Array();
+                        xdata = new Array();
+
+                    });
+                }
+            });
+        }
+
+        function get_banner_info() {
+            $.ajax({
+                url: '@Url.Action("GetBannerInfo", "Graph")',
+                type: 'POST',
+                data: {},
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function (data) {
+                    $.each(data, function (index, val) {
+                        $('div#jssor_slide').append("<div data-p='112.50' style='display: none;'><img data-u='image' src='" + val.BannerPath + val.BannerName + "' /></div>");
+                    });
+                }
+            });
+        }
+
+        //handling Error
+        function handleAjaxError(textStatus) {
+            if (textStatus === 'timeout') {
+                bootstrap_alert.error("Timeout", "The server took too long to send the data.");
+            } else {
+                bootstrap_alert.error("Connection problem", "An error occurred on the server. Please try again in a few minute or contact your administrator.");
+            }
+        }
+
+        bootstrap_alert = function () { };
+        bootstrap_alert.success = function (header, message) {
+            $('#alert_placeholder').html('<div class="alert alert-success" role="alert"><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button><b>' + header + '!</b> ' + message + '</div>');
+        };
+
+        bootstrap_alert.error = function (header, message) {
+            $('#alert_placeholder').html('<div class="alert alert-danger" role="alert"><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button><b>' + header + '!</b> ' + message + '</div>');
+        };
+    </script>
+}

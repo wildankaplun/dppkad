@@ -83,12 +83,9 @@
     <div class="page-footer">
         <div class="page-footer-wrap">
             <div>
-                @foreach (var item in (List<Dppkad.Models.BeritaInfo>)ViewBag.BeritaViewInfo)
-                {
-                    <marquee direction="right">
-                        @item.News
-                    </marquee>
-                }
+                <marquee direction="left">
+                    @ViewBag.BeritaViewInfo
+                </marquee>
             </div>
         </div>
     </div>

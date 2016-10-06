@@ -1,0 +1,83 @@
+﻿@model Dppkad.Models.UserDppkadUpdate
+@{
+    ViewBag.Title = "Users Info";
+}
+
+<a title="" class="btn btn-white" href="@Url.Action("Index", "Admin")" data-original-title=" "><i class=" fa fa-chevron-left"></i> Admin Dashboard</a>
+<br><br>
+
+@using (Html.BeginForm("UsersInfo", "Admin", FormMethod.Post))
+{
+    <section class="panel">
+        <header class="panel-heading font-bold">Users Data</header>
+        <div class="panel-body">
+            <div class="row" style="margin-bottom: 15px;">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <div class="col-lg-6"><label>Username</label></div>
+                        <div class="col-lg-6">
+                            @Html.TextBoxFor(o => o.UserName, null, new { @class = "form-control placeholder mandatory" })
+                            @Html.ValidationMessageFor(o => o.UserName)
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <div class="col-lg-6"><label>Hak Akses</label></div>
+                        <div class="col-lg-6">
+                            @Html.DropDownListFor(o => o.UserRole
+                                  , new List<SelectListItem>()
+                                  {
+                                    new SelectListItem() { Text = "Administrator", Value = "ADM" },
+                                    new SelectListItem() { Text = "User", Value = "USR" }
+                                  }, new { @class = "form-control placeholder mandatory" })
+                            @Html.ValidationMessageFor(o => o.UserRole)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="margin-bottom: 15px;">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <div class="col-lg-6"><label>Email</label></div>
+                        <div class="col-lg-6">
+                            @Html.TextBoxFor(o => o.UserEmail, null, new { @class = "form-control placeholder mandatory", @placeholder = "ex : yanto@gmail.com" })
+                            @Html.ValidationMessageFor(o => o.UserEmail)
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <div class="col-lg-6"><label>Status</label></div>
+                        <div class="col-lg-6">
+                            @Html.DropDownListFor(o => o.UserStatus
+                                  , new List<SelectListItem>()
+                                  {
+                                    new SelectListItem() { Text = "Ya", Value = "Y" },
+                                    new SelectListItem() { Text = "Tidak", Value = "N" }
+                                  }, new { @class = "form-control placeholder mandatory" })
+                            @Html.ValidationMessageFor(o => o.UserStatus)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="margin-bottom: 15px;">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <div class="col-lg-6"><label>Password</label></div>
+                        <div class="col-lg-6">
+                            @Html.PasswordFor(o => o.UserPassword, new { @class = "form-control placeholder mandatory" })
+                            @Html.ValidationMessageFor(o => o.UserPassword)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="panel">
+        <footer class="panel-footer bg-light lter">
+            <input type="submit" id="statusButton_" value="Submit" class="btn btn-primary" style="width: 100px;" />
+        </footer>
+    </section>
+}
+

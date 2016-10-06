@@ -243,12 +243,13 @@ namespace Dppkad.DAL
         {
             var result = (from c in _beritaRepository.AsQueryable()
                           where c.ActiveFlag == true
+                          orderby c.CreatedDate descending
                           select new BeritaInfo()
                           {
                               News = c.News,
                               ActiveFlag = c.ActiveFlag ?? false,
                           });
-            return result.AsEnumerable();
+            return result.Skip(0).Take(10).AsEnumerable();
         }
     }
 }

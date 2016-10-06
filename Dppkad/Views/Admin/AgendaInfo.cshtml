@@ -1,0 +1,178 @@
+﻿@model Dppkad.Models.AgendaSkpdUpdate
+@{
+    ViewBag.Title = "Agenda Info";
+
+    var localeDateFormat = System.Threading.Thread.CurrentThread.CurrentCulture.DateTimeFormat.ShortDatePattern;
+}
+
+<a title="" class="btn btn-white" href="@Url.Action("Index", "Admin")" data-original-title=" "><i class=" fa fa-chevron-left"></i> Admin Dashboard</a>
+<br><br>
+
+<div class="alert alert-success" role="alert" style="display: none;">
+    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+    <b>Success!</b> @ViewBag.Success
+</div>
+@if (@ViewBag.Success != null)
+{
+    <div class="alert alert-success" role="alert" style="display: block;">
+        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <b>Success!</b> @ViewBag.Success
+    </div>
+}
+
+<br />
+
+@using (Html.BeginForm("AgendaInfo", "Admin", FormMethod.Post))
+{
+    <section class="panel">
+        <header class="panel-heading font-bold">Agenda Data</header>
+        <div class="panel-body">
+            <div class="row" style="margin-bottom: 15px;">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <div class="col-lg-6"><label>Hari</label></div>
+                        <div class="col-lg-6">
+                            @Html.DropDownListFor(o => o.Hari
+                                  , new List<SelectListItem>()
+                                  {
+                                    new SelectListItem() { Text = "Senin", Value = "Senin" },
+                                    new SelectListItem() { Text = "Selasa", Value = "Selasa" },
+                                    new SelectListItem() { Text = "Rabu", Value = "Rabu" },
+                                    new SelectListItem() { Text = "Kamis", Value = "Kamis" },
+                                    new SelectListItem() { Text = "Jum'at", Value = "Jum'at" }
+                                  }, new { @class = "form-control placeholder mandatory" })
+                            @Html.ValidationMessageFor(o => o.Hari)
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <div class="col-lg-6"><label>Uraian</label></div>
+                        <div class="col-lg-6">
+                            @Html.TextBoxFor(o => o.Uraian, null, new { @class = "form-control placeholder mandatory" })
+                            @Html.ValidationMessageFor(o => o.Uraian)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="margin-bottom: 15px;">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <div class="col-lg-6"><label>Tanggal</label></div>
+                        <div class="col-lg-6">
+                            <div class="input-group date">
+                                @Html.TextBoxFor(o => o.Tanggal, String.Format("{{0:" + localeDateFormat + "}}", Model.Tanggal), new { @class = "form-control datepicker mandatory" })
+                                <span class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </span>
+                            </div>
+                            @Html.ValidationMessageFor(o => o.Tanggal)
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <div class="col-lg-6"><label>Keterangan</label></div>
+                        <div class="col-lg-6">
+                            @Html.TextBoxFor(o => o.Keterangan, null, new { @class = "form-control placeholder mandatory" })
+                            @Html.ValidationMessageFor(o => o.Keterangan)
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="margin-bottom: 15px;">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <div class="col-lg-6"><label>Jam</label></div>
+                        <div class="col-lg-6">
+                            @Html.TextBoxFor(o => o.Jam, null, new { @class = "form-control mandatory", @placeholder = "hh:mm" })
+                            @Html.ValidationMessageFor(o => o.Jam)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="panel">
+        <footer class="panel-footer bg-light lter">
+            <input type="submit" id="statusButton_" value="Submit" class="btn btn-primary" style="width: 100px;" />
+        </footer>
+    </section>
+}
+
+@Html.Partial("_Agenda")
+
+@section Scripts{
+    <script src="@Url.Content("~/Scripts/plugins/datatables/jquery.dataTables.min.js")"></script>
+    
+    <script type="text/javascript">
+        var oTableAgenda;
+
+        $('.datepicker-input').prop('readonly', true);
+        $('.datepicker').datepicker({
+            format: '@localeDateFormat.ToLower()'
+        });
+
+        $(document).ready(function () {
+            $('#table-agenda-list').each(function () {
+                oTableAgenda = $(this).dataTable({
+                    "bServerSide": true,
+                    "bProcessing": true,
+                    "aaSorting": [[0, "asc"]],
+                    "sScrollXInner": "200%",
+                    "sAjaxSource": "@Url.Action("AjaxAgendaHandler", "Admin")",
+                    "sDom": "<'row'<'col-sm-6'><'col-sm-6'>r>t<'row'<'col-sm-6'i><'col-sm-6'p>>",
+                    "sPaginationType": "full_numbers",
+                    "bAutoWidth": false,
+                    "aoColumns": [
+                        { "mData": "No" },
+                        { "mData": "Hari" },
+                        { "mData": "Tanggal" },
+                        { "mData": "Jam" },
+                        { "mData": "Uraian" },
+                        { "mData": "Keterangan" }
+                    ],
+                    "aoColumnDefs": [
+                        { "sWidth": "50%", "aTargets": [5] },
+                        { "sClass": "center", "aTargets": [0, 1, 2, 3, 4, 5] }
+                    ],
+                    "fnRowCallback": function (nRow, aData, iDisplayIndex) {
+                        $('td:eq(1)', nRow).css("text-align", "center");
+                        $('td:eq(2)', nRow).css("text-align", "center");
+                        $('td:eq(3)', nRow).css("text-align", "center");
+                        return nRow;
+                    },
+                    "fnServerData": function (sSource, aoData, fnCallback) {
+                        $.ajax({
+                            "dataType": 'json',
+                            "type": "POST",
+                            "url": sSource,
+                            "data": aoData,
+                            "success": fnCallback,
+                            "timeout": 10000, // optional if you want to handle timeouts (which you should)
+                            "error": handleAjaxError // this sets up jQuery to give me errors
+                        });
+                    }
+                });
+            });
+        });
+
+        //handling Error
+        function handleAjaxError(textStatus) {
+            if (textStatus === 'timeout') {
+                bootstrap_alert.error("Timeout", "The server took too long to send the data.");
+            } else {
+                bootstrap_alert.error("Connection problem", "An error occurred on the server. Please try again in a few minute or contact your administrator.");
+            }
+        }
+
+        bootstrap_alert = function () { };
+        bootstrap_alert.success = function (header, message) {
+            $('#alert_placeholder').html('<div class="alert alert-success" role="alert"><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button><b>' + header + '!</b> ' + message + '</div>');
+        };
+
+        bootstrap_alert.error = function (header, message) {
+            $('#alert_placeholder').html('<div class="alert alert-danger" role="alert"><button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button><b>' + header + '!</b> ' + message + '</div>');
+        };
+    </script>
+}

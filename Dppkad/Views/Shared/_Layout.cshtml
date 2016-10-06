@@ -23,7 +23,7 @@
             <div class="navbar-header">
                 <center><p><h3>@ViewBag.Title</h3></p></center>
             </div>
-            @if (!string.IsNullOrEmpty(Session["Username"] as string))
+            @if (!string.IsNullOrEmpty((string)Session["Username"]))
             {
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
@@ -46,10 +46,10 @@
 
     <div class="container">
         @RenderBody()
-        <hr />
+        @*<hr />
         <footer>
             <center><p>Copyright &copy; Abdi Creative Technology 2016. All rights reserved.</p></center>
-        </footer>
+        </footer>*@
     </div>
     @RenderSection("Scripts", false)
 </body>

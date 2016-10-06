@@ -1,0 +1,69 @@
+﻿
+<div class="row">
+    <div class="col-md-9">
+        <div class="block block-drop-shadow">
+            <div class="head bg-default bg-light-ltr">
+                <h2>Realisasi Tahun @DateTime.Now.AddYears(-1).Year</h2>
+
+            </div>
+            <div class="content list">
+                <table id="table-list" class="table table-bordered table-striped sortable">
+                    <thead>
+                        <tr>
+                            <th>
+                                NO
+                            </th>
+                            <th>
+                                UNIT/SKPD
+                            </th>
+                            <th>
+                                TOTAL ANGGARAN
+                            </th>
+                            <th>
+                                TOTAL REALISASI
+                            </th>
+                            <th>
+                                PERSENTASE(%)
+                            </th>
+                            <th>
+                                SISA ANGGARAN
+                            </th>
+                            <th>
+                                Status
+                            </th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+        <div class="block block-drop-shadow">
+            <div class="head bg-dot30">
+                <h2>Usulan</h2>
+                <div class="side pull-right">
+                </div>
+                <div class="head-panel nm">
+                    <div class="chart" id="dash_chart_2" style="height: 150px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="content list-group list-group-icons">
+            @Html.Partial("_Slide")
+        </div>
+        <div class="content list-group list-group-icons">
+            @Html.Partial("_Agenda")
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="page-footer">
+        <div class="page-footer-wrap">
+            <div>
+                <marquee direction="left">
+                    @ViewBag.BeritaViewInfo
+                </marquee>
+            </div>
+        </div>
+    </div>
+</div>

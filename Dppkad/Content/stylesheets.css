@@ -148,3 +148,15 @@
 
 /*End datatable header grid*/
 
+.datepicker-input {
+    cursor: pointer !important;
+}
+
+body.modal-open .datepicker.datepicker-dropdown.dropdown-menu {
+    z-index: 1200 !important;
+}
+
+input.datepicker-input[readonly] {
+    background-color: #fff !important;
+    /* any other styles */
+}

@@ -1,0 +1,94 @@
+﻿@{
+    ViewBag.Title = "Banner Info";
+}
+
+<link href="@Url.Content("~/Content/uploadify.css")" rel="stylesheet" type="text/css" />
+
+<a title="" class="btn btn-white" href="@Url.Action("Index", "Admin")" data-original-title=" "><i class=" fa fa-chevron-left"></i> Admin Dashboard</a>
+<br><br>
+
+<div class="alert alert-success" role="alert" style="display: none;">
+    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+    <b>Success!</b> @ViewBag.Success
+</div>
+@if (@ViewBag.Success != null)
+{
+<div class="alert alert-success" role="alert" style="display: block;">
+    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+    <b>Success!</b> @ViewBag.Success
+</div>
+}
+
+<br />
+
+@using (Html.BeginForm("BannerInfo", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <section class="panel">
+        <header class="panel-heading font-bold">Upload File(*.jpg, *.jpeg, *.png) Data</header>
+        <div class="panel-body">
+            <div class="row" style="margin-bottom: 15px;">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <div class="col-lg-6"><label>Nama File 1</label></div>
+                        <div class="col-lg-6">
+                            <input type="file" name="files" id="file1" accept="jpg|jpeg|png" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <div class="col-lg-6"><label>Nama File 4</label></div>
+                        <div class="col-lg-6">
+                            <input type="file" name="files" id="file4" accept="jpg|jpeg|png" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <div class="col-lg-6"><label>Nama File 2</label></div>
+                        <div class="col-lg-6">
+                            <input type="file" name="files" id="file2" accept="jpg|jpeg|png" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <div class="col-lg-6"><label>Nama File 5</label></div>
+                        <div class="col-lg-6">
+                            <input type="file" name="files" id="file5" accept="jpg|jpeg|png" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <div class="col-lg-6"><label>Nama File 3</label></div>
+                        <div class="col-lg-6">
+                            <input type="file" name="files" id="file4" accept="jpg|jpeg|png" />
+                        </div>
+                    </div>
+                </div>
+                @*<div class="col-lg-6">
+                    <div class="form-group">
+                        <div class="col-lg-6"><label>Nama File 6</label></div>
+                        <div class="col-lg-6">
+                            <input type="file" name="files" id="file6" accept="jpg|jpeg|png" />
+                        </div>
+                    </div>
+                </div>*@
+            </div>
+        </div>
+    </section>
+    <section class="panel">
+        <footer class="panel-footer bg-light lter">
+            <input type="submit" id="statusButton_" value="Upload" class="btn btn-primary" style="width: 100px;" />
+        </footer>
+    </section>
+}
+
+@section Scripts{
+    @*<script src="@Url.Content("~/Scripts/jquery.uploadify.min.js")"></script>*@
+ 
+    <script type="text/javascript">
+        
+    </script>
+}

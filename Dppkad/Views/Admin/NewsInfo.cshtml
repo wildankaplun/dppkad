@@ -1,0 +1,52 @@
+﻿@model Dppkad.Models.BeritaSkpdUpdate
+@{
+    ViewBag.Title = "Berita Info";
+}
+
+<a title="" class="btn btn-white" href="@Url.Action("Index", "Admin")" data-original-title=" "><i class=" fa fa-chevron-left"></i> Admin Dashboard</a>
+<br><br>
+
+<div class="alert alert-success" role="alert" style="display: none;">
+    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+    <b>Success!</b> @ViewBag.Success
+</div>
+@if (@ViewBag.Success != null)
+{
+    <div class="alert alert-success" role="alert" style="display: block;">
+        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <b>Success!</b> @ViewBag.Success
+    </div>
+}
+
+<br />
+
+@using (Html.BeginForm("NewsInfo", "Admin", FormMethod.Post))
+{
+    <section class="panel">
+        <header class="panel-heading font-bold">Berita Data</header>
+        <div class="panel-body">
+            <div class="row" style="margin-bottom: 15px;">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <div class="col-lg-6"><label>Berita</label></div>
+                        <div class="col-lg-6">
+                            @Html.TextBoxFor(o => o.News, null, new { @class = "form-control placeholder mandatory" })
+                            @Html.ValidationMessageFor(o => o.News)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="panel">
+        <footer class="panel-footer bg-light lter">
+            <input type="submit" id="statusButton_" value="Submit" class="btn btn-primary" style="width: 100px;" />
+        </footer>
+    </section>
+}
+
+@section Scripts{
+
+    <script type="text/javascript">
+    </script>
+}

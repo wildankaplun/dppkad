@@ -14,6 +14,20 @@ namespace Dppkad.DAL
 {
     public interface IAdminService
     {
+        bool AddBannerInfo(TBanner banner);
+        bool UpdateBannerInfo(TBanner banner);
+        IEnumerable<TBanner> GetBannerInfoById(bool flag);
+        bool DeleteBannerInfo(TBanner banner);
+
+        bool AddAgendaInfo(TAgenda agenda);
+
+        bool AddBeritaInfo(TBerita berita);
+
+        bool AddGraphInfo(TGrafik graph);
+
+        bool AddRealisasiInfo(TRealisasiSkpd graph);
+
+
         void SaveContext();
 
         IEnumerable<RealisasiSkpdModelInfo> GetRealisasiSkpdList(Expression<Func<RealisasiSkpdModelInfo, bool>> where, int take, int skip,
@@ -26,10 +40,16 @@ namespace Dppkad.DAL
         IEnumerable<AgendaSkpdInfo> GetAgendaInfoList(Expression<Func<AgendaSkpdInfo, bool>> where, int take, int skip,
             Expression<Func<AgendaSkpdInfo, string>> sort, string sortType);
 
+        IEnumerable<ChartSkpdInfo> GetGraphInfoList(Expression<Func<ChartSkpdInfo, bool>> where, int take, int skip,
+            Expression<Func<ChartSkpdInfo, string>> sort, string sortType);
+
         IEnumerable<ChartSkpdInfo> GetChartInfo();
 
         int TotalAgendaInfo();
         int TotalAgendaInfo(Expression<Func<AgendaSkpdInfo, bool>> where);
+
+        int TotalGraphInfo();
+        int TotalGraphInfo(Expression<Func<ChartSkpdInfo, bool>> where);
 
         IEnumerable<BeritaSkpdInfo> GetBeritaInfo();
     }
@@ -58,6 +78,216 @@ namespace Dppkad.DAL
             _bannerRepository = bannerRepository;
             _beritaRepository = beritaRepository;
             _unitOfWork = unitOfWork;
+        }
+
+        public bool AddBannerInfo(TBanner banner)
+        {
+            if (banner == null)
+                throw new ArgumentNullException("banner");
+
+            try
+            {
+                _bannerRepository.Insert(banner);
+
+                return true;
+            }
+            catch (DbEntityValidationException dbEx)
+            {
+                Exception raise = dbEx;
+                foreach (var validationErrors in dbEx.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        string message = string.Format("{0}:{1}",
+                            validationErrors.Entry.Entity,
+                            validationError.ErrorMessage);
+                        // raise a new exception nesting
+                        // the current instance as InnerException
+                        raise = new InvalidOperationException(message, raise);
+                    }
+                }
+                throw raise;
+            }
+        }
+
+        public bool UpdateBannerInfo(TBanner banner)
+        {
+            if (banner == null)
+                throw new ArgumentNullException("banner");
+
+            try
+            {
+                _bannerRepository.Update(banner);
+
+                return true;
+            }
+            catch (DbEntityValidationException dbEx)
+            {
+                Exception raise = dbEx;
+                foreach (var validationErrors in dbEx.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        string message = string.Format("{0}:{1}",
+                            validationErrors.Entry.Entity,
+                            validationError.ErrorMessage);
+                        // raise a new exception nesting
+                        // the current instance as InnerException
+                        raise = new InvalidOperationException(message, raise);
+                    }
+                }
+                throw raise;
+            }
+        }
+
+        public bool DeleteBannerInfo(TBanner banner)
+        {
+            if (banner == null)
+                throw new ArgumentNullException("banner");
+
+            try
+            {
+                _bannerRepository.Delete(banner);
+
+                return true;
+            }
+            catch (DbEntityValidationException dbEx)
+            {
+                Exception raise = dbEx;
+                foreach (var validationErrors in dbEx.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        string message = string.Format("{0}:{1}",
+                            validationErrors.Entry.Entity,
+                            validationError.ErrorMessage);
+                        // raise a new exception nesting
+                        // the current instance as InnerException
+                        raise = new InvalidOperationException(message, raise);
+                    }
+                }
+                throw raise;
+            }
+        }
+
+        public bool AddAgendaInfo(TAgenda agenda)
+        {
+            if (agenda == null)
+                throw new ArgumentNullException("agenda");
+
+            try
+            {
+                _agendaRepository.Insert(agenda);
+
+                return true;
+            }
+            catch (DbEntityValidationException dbEx)
+            {
+                Exception raise = dbEx;
+                foreach (var validationErrors in dbEx.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        string message = string.Format("{0}:{1}",
+                            validationErrors.Entry.Entity,
+                            validationError.ErrorMessage);
+                        // raise a new exception nesting
+                        // the current instance as InnerException
+                        raise = new InvalidOperationException(message, raise);
+                    }
+                }
+                throw raise;
+            }
+        }
+
+        public bool AddBeritaInfo(TBerita berita)
+        {
+            if (berita == null)
+                throw new ArgumentNullException("berita");
+
+            try
+            {
+                _beritaRepository.Insert(berita);
+
+                return true;
+            }
+            catch (DbEntityValidationException dbEx)
+            {
+                Exception raise = dbEx;
+                foreach (var validationErrors in dbEx.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        string message = string.Format("{0}:{1}",
+                            validationErrors.Entry.Entity,
+                            validationError.ErrorMessage);
+                        // raise a new exception nesting
+                        // the current instance as InnerException
+                        raise = new InvalidOperationException(message, raise);
+                    }
+                }
+                throw raise;
+            }
+        }
+
+        public bool AddGraphInfo(TGrafik grafik)
+        {
+            if (grafik == null)
+                throw new ArgumentNullException("grafik");
+
+            try
+            {
+                _grafikRepository.Insert(grafik);
+
+                return true;
+            }
+            catch (DbEntityValidationException dbEx)
+            {
+                Exception raise = dbEx;
+                foreach (var validationErrors in dbEx.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        string message = string.Format("{0}:{1}",
+                            validationErrors.Entry.Entity,
+                            validationError.ErrorMessage);
+                        // raise a new exception nesting
+                        // the current instance as InnerException
+                        raise = new InvalidOperationException(message, raise);
+                    }
+                }
+                throw raise;
+            }
+        }
+
+        public bool AddRealisasiInfo(TRealisasiSkpd realisasi)
+        {
+            if (realisasi == null)
+                throw new ArgumentNullException("realisasi");
+
+            try
+            {
+                _realisasiRepository.Insert(realisasi);
+
+                return true;
+            }
+            catch (DbEntityValidationException dbEx)
+            {
+                Exception raise = dbEx;
+                foreach (var validationErrors in dbEx.EntityValidationErrors)
+                {
+                    foreach (var validationError in validationErrors.ValidationErrors)
+                    {
+                        string message = string.Format("{0}:{1}",
+                            validationErrors.Entry.Entity,
+                            validationError.ErrorMessage);
+                        // raise a new exception nesting
+                        // the current instance as InnerException
+                        raise = new InvalidOperationException(message, raise);
+                    }
+                }
+                throw raise;
+            }
         }
 
         /// <summary>
@@ -194,16 +424,23 @@ namespace Dppkad.DAL
             return result.AsEnumerable();
         }
 
+        public IEnumerable<TBanner> GetBannerInfoById(bool flag)
+        {
+            var result = _bannerRepository.AsQueryable(c => c.ActiveFlag == flag);
+            return result;
+        }
+
         public IEnumerable<BeritaSkpdInfo> GetBeritaInfo()
         {
             var result = (from c in _beritaRepository.AsQueryable()
                           where c.ActiveFlag == true
+                          orderby c.CreatedDate ascending
                           select new BeritaSkpdInfo()
                           {
                               News = c.News,
                               ActiveFlag = c.ActiveFlag ?? false,
                           });
-            return result.AsEnumerable();
+            return result.Skip(0).Take(10).AsEnumerable();
         }
 
         public IEnumerable<ChartSkpdInfo> GetChartInfo()
@@ -217,6 +454,48 @@ namespace Dppkad.DAL
                               Realisasi = c.Realisasi
                           });
             return result.AsEnumerable();
+        }
+
+        private IQueryable<ChartSkpdInfo> QueryGraphLookup
+        {
+            get
+            {
+                return (from a in _grafikRepository.AsQueryable()
+                        select new ChartSkpdInfo()
+                        {
+                            TahunBudget = a.TahunBudget,
+                            Budget = a.Budget,
+                            Realisasi = a.Realisasi
+                        });
+            }
+        }
+
+        public int TotalGraphInfo()
+        {
+            return QueryGraphLookup.Count();
+        }
+
+        public int TotalGraphInfo(Expression<Func<ChartSkpdInfo, bool>> where)
+        {
+            if (@where == null)
+                return TotalGraphInfo();
+            return QueryGraphLookup.Where(where).Count();
+        }
+
+        public IEnumerable<ChartSkpdInfo> GetGraphInfoList(Expression<Func<ChartSkpdInfo, bool>> where, int take, int skip,
+            Expression<Func<ChartSkpdInfo, string>> sort, string sortType)
+        {
+            if (sortType.Equals("asc"))
+            {
+                if (@where == null)
+                {
+                    return QueryGraphLookup.OrderBy(sort).Skip(skip).Take(take).AsEnumerable();
+                }
+                return QueryGraphLookup.Where(@where).OrderBy(sort).Skip(skip).Take(take).AsEnumerable();
+            }
+            if (@where == null)
+                return QueryGraphLookup.OrderByDescending(sort).Skip(skip).Take(take).AsEnumerable();
+            return QueryGraphLookup.Where(@where).OrderByDescending(sort).Skip(skip).Take(take).AsEnumerable();
         }
     }
 }

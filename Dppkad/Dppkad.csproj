@@ -155,11 +155,6 @@
     <Content Include="Content\fullcalendar\fullcalendar.css" />
     <Content Include="Content\icons\font-awesome.min.css" />
     <Content Include="Content\images\a17.png" />
-    <Content Include="Content\images\gambar01.png" />
-    <Content Include="Content\images\gambar02.png" />
-    <Content Include="Content\images\gambar03.png" />
-    <Content Include="Content\images\gambar04.png" />
-    <Content Include="Content\images\gambar05.png" />
     <Content Include="Content\images\loading.gif" />
     <Content Include="Content\img\background\bg_num1.jpg" />
     <Content Include="Content\img\background\bg_num2.jpg" />
@@ -305,6 +300,7 @@
     <Content Include="Content\fonts\fontawesome-webfont.ttf" />
     <Content Include="Content\fonts\fontawesome-webfont.woff" />
     <Content Include="Content\fonts\FontAwesome.otf" />
+    <None Include="Properties\PublishProfiles\dppkad.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\charts.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -746,6 +742,8 @@
     <Content Include="Scripts\plugins\validationengine\languages\jquery.validationEngine-vi.js" />
     <Content Include="Scripts\plugins\validationengine\languages\jquery.validationEngine-zh_CN.js" />
     <Content Include="Scripts\plugins\validationengine\languages\jquery.validationEngine-zh_TW.js" />
+    <Content Include="Scripts\plugins\vticker\jquery.vticker.js" />
+    <Content Include="Scripts\plugins\vticker\jquery.vticker.min.js" />
     <Content Include="Scripts\settings.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -775,6 +773,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\GraphController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="DAL\AccountService.cs" />
     <Compile Include="DAL\AdminService.cs" />
@@ -824,10 +823,18 @@
     <Content Include="Views\Home\_Agenda.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
-    <Content Include="Views\Admin\_GridData.cshtml" />
-    <Content Include="Views\Admin\_Slide.cshtml" />
-    <Content Include="Views\Admin\_Agenda.cshtml" />
+    <Content Include="Views\Graph\_GridData.cshtml" />
+    <Content Include="Views\Graph\_Slide.cshtml" />
+    <Content Include="Views\Graph\_Agenda.cshtml" />
     <Content Include="Views\Admin\RealisasiSkpd.cshtml" />
+    <Content Include="Views\Graph\Index.cshtml" />
+    <Content Include="Views\Admin\BannerInfo.cshtml" />
+    <Content Include="Views\Admin\NewsInfo.cshtml" />
+    <Content Include="Views\Admin\AgendaInfo.cshtml" />
+    <Content Include="Views\Admin\UsersInfo.cshtml" />
+    <Content Include="Views\Admin\_Agenda.cshtml" />
+    <Content Include="Views\Admin\GraphInfo.cshtml" />
+    <Content Include="Views\Admin\_Grafik.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
